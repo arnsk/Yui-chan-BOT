@@ -1,97 +1,94 @@
 exports.textTnC = () => {
     return `
-Source code / bot ini merupakan program open-source (gratis) yang ditulis menggunakan Javascript, kamu dapat menggunakan, menyalin, memodifikasi, menggabungkan, menerbitkan, mendistribusikan, mensublisensikan, dan atau menjual salinan dengan tanpa menghapus author utama dari source code / bot ini.
+Este é um programa de código aberto (gratuito) escrito usando Javascript, você pode usar, copiar, modificar, combinar, publicar, distribuir, sublicenciar e ou vender cópias sem remover o autor principal do código-fonte / bot.
 
-Dengan menggunakan source code / bot ini maka anda setuju dengan Syarat dan Kondisi sebagai berikut:
-- Source code / bot tidak menyimpan data anda di server kami.
-- Source code / bot tidak bertanggung jawab atas sticker yang anda buat dari bot ini serta video, gambar maupun data lainnya yang anda dapatkan dari Source code / bot ini.
-- Source code / bot tidak boleh digunakan untuk layanan yang bertujuan/berkontribusi dalam: 
-    • seks / perdagangan manusia
-    • perjudian
-    • perilaku adiktif yang merugikan 
-    • kejahatan
-    • kekerasan (kecuali jika diperlukan untuk melindungi keselamatan publik)
-    • pembakaran hutan / penggundulan hutan
-    • ujaran kebencian atau diskriminasi berdasarkan usia, jenis kelamin, identitas gender, ras, seksualitas, agama, kebangsaan
+Usando source code / bot ini então você concorda com os seguintes termos e condições:
+- Source code / bot não armazena seus dados em nossos servidores.
+- Source code / bot não é responsável pelos adesivos que você faz a partir deste bot, bem como pelos vídeos, imagens e outros dados que você obtém de Source code / bot ini.
+- Source code / bot não pode ser usado para serviços que visam / contribuem para: 
+    • sexo / tráfico humano
+    • jogos de azar
+    • comportamento viciante prejudicial
+    • crime
+    • violência (a menos que necessário para proteger a segurança pública)
+    • queima / desmatamento florestal
+    • discurso de ódio ou discriminação com base na idade, sexo, identidade de gênero, raça, sexualidade, religião, nacionalidade
 
-Source Code BOT : https://github.com/YogaSakti/imageToSticker
-NodeJS WhatsApp library: https://github.com/open-wa/wa-automate-nodejs
+Código fonte BOT : https://github.com/YogaSakti/imageToSticker
+Biblioteca NodeJS WhatsApp: https://github.com/open-wa/wa-automate-nodejs
 
-Best regards, Yoga Sakti.`
+Atenciosamente, Yoga Sakti.`
 }
 
 exports.textMenu = (pushname) => {
     return `
-Hi, ${pushname}! 👋️
-Berikut adalah beberapa fitur yang ada pada bot ini!✨
+Oi, ${pushname}! 👋️
+Aqui estão alguns dos recursos deste bot! ✨
 
 Sticker Creator:
 1. *#sticker*
-Untuk merubah gambar menjadi sticker. (kirim gambar dengan caption #sticker atau balas gambar yang sudah dikirim dengan #sticker)
-
-1. *#sticker*
-Untuk merubah gambar menjadi sticker. (kirim gambar dengan caption #sticker atau balas gambar yang sudah dikirim dengan #sticker)
+Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker ou responda às imagens que foram enviadas com #sticker)
 
 2. *#sticker* _<Url Gambar>_
-Untuk merubah gambar dari url menjadi sticker. 
+Para mudar a imagem de url para adesivo.
 
 3. *#gifsticker* _<Giphy URL>_ / *#stickergif* _<Giphy URL>_
-Untuk merubah gif menjadi sticker (Giphy Only)
+Para transformar um GIF em um adesivo (somente Giphy)
 
 Downloader:
 1. *#tiktok* _<tiktok url> _
-Untuk mengunduh video dari video tiktok.
+Para baixar vídeos do vídeo tiktok.
 
 2. *#fb* _<post/video url>_
-Untuk mengunduh video dari Facebook.
+Para baixar videos do facebook.
 
 3. *#ig* _<instagram post url>_
-Untuk mengunduh photo dan video dari instagram.
+Para baixar videos so instagram.
 
 4. *#twt* _<twitter post url>_
-Untuk mengunduh photo dan video dari Twitter.
+Para baixar videos do twitter.
 
 Lain-lain:
 1. *#resi* _<kurir>_ _<nomer resi>_
-Untuk memeriksa status pengiriman barang, daftar kurir: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
+Para verificar o status de entrega das mercadorias, lista de mensageiros: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
 
 2. *#tnc*
-Menampilkan Syarat dan Kondisi Bot.
+Exibe os termos e condições do bot.
 
 3. *#donasi*
-menampilkan informasi donasi.
+exibir informações de doação.
 
-Hope you have a great day!✨`
+Espero que você tenha um ótimo dia!✨`
 }
 
 exports.textAdmin = () => {
     return `
 ⚠ [ *Admin Group Only* ] ⚠ 
-Berikut adalah beberapa fitur admin grup yang ada pada bot ini!
+Aqui estão alguns dos recursos de administração de grupo incluídos neste bot!
 
 1. *#kick* @user
-Untuk mengeluarkan member dari grup (bisa lebih dari 1).
+Para remover membros do grupo (pode ser mais de 1).
 
 2. *#promote* @user
-Untuk mempromosikan member menjadi Admin grup.
+Para promover membros a administradores do grupo.
 
 3. *#demote* @user
-Untuk demosikan Admin grup.
+Para rebaixar os administradores do Grupo.
 
 4. *#tagall*
-Untuk mention semua member grup. (Premium Only)
+Para mencionar todos os membros do grupo. (Apenas Premium)
 
 5. *#del*
-Untuk menghapus pesan bot (balas pesan bot dengan #del)`
+Para deletar uma mensagem do bot (responda à mensagem do bot com #del)`
 }
 
 exports.textDonasi = () => {
     return `
-Hai, terimakasih telah menggunakan bot ini, untuk mendukung bot ini kamu dapat membantu dengan berdonasi melalui link berikut:
+Olá, obrigado por usar este bot, para apoiar este bot você pode ajudar doando através do seguinte link:
 1. Saweria: https://saweria.co/yogasakti
 2. Trakteer: https://trakteer.id/red-emperor 
 
-Donasi akan digunakan untuk pengembangan dan pengoperasian bot ini.
+A doação será usada para o desenvolvimento e operação deste bot.
 
-Terimakasih.`
+Obrigado.`
 }
