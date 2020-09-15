@@ -231,7 +231,7 @@ module.exports = msgHandler = async (client, message) => {
             break
         case 'waifu':
         case 'waifus':
-            waifu().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'cat.jpg', `${title}`, null, null, true))
+            waifu().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'waifu.jpg', `${title}`, null, null, true))
             break      
         // Group Commands (group admin only)
         case 'kick':
