@@ -70,6 +70,9 @@ imagem aleatoria de hentai
 7. *#walpapper*
 gera uma walpapper de anime aleatoria
 
+8. *#futa*
+gera hentai de futa "fravis intensefies"
+
 o bot possui uma segunda lista de comandos ao digitar @comandos
 
 Espero que você tenha um ótimo dia!✨`
