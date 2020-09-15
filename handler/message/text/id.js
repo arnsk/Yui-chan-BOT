@@ -67,7 +67,7 @@ imagem aleatoria de uma waifu
 6. *#hentai*
 imagem aleatoria de hentai
 
-7. *#walpapper*
+7. *#wallpaper*
 gera uma walpapper de anime aleatoria
 
 8. *#futa*
