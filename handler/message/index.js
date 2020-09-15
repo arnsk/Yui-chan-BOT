@@ -233,6 +233,10 @@ module.exports = msgHandler = async (client, message) => {
         case 'waifus':
             waifu().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'waifu.jpg', `${title}`, null, null, true))
             break      
+        case 'futa':
+        case 'futanari':
+            futa().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'futa.jpg', `${title}`, null, null, true))
+            break            
         // Group Commands (group admin only)
         case 'kick':
             if (!isGroupMsg) return client.reply(from, 'Maaf, perintah ini hanya dapat dipakai didalam grup! [Group Only]', id)
