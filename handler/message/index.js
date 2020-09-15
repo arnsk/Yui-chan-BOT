@@ -229,12 +229,9 @@ module.exports = msgHandler = async (client, message) => {
         case 'kitten':
             cat().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'cat.jpg', `${title}`, null, null, true))
             break
-        case 'resi':
-            if (args.length !== 2) return client.reply(from, 'Maaf, format pesan salah silahkan periksa menu. [Wrong Format]', id)
-            const kurirs = ['jne', 'pos', 'tiki', 'wahana', 'jnt', 'rpx', 'sap', 'sicepat', 'pcp', 'jet', 'dse', 'first', 'ninja', 'lion', 'idl', 'rex']
-            if (!kurirs.includes(args[0])) return client.sendText(from, `Maaf, jenis ekspedisi pengiriman tidak didukung layanan ini hanya mendukung ekspedisi pengiriman ${kurirs.join(', ')} Tolong periksa kembali.`)
-            console.log('Memeriksa No Resi', args[1], 'dengan ekspedisi', args[0])
-            cekResi(args[0], args[1]).then((result) => client.sendText(from, result))
+        case 'waifu':
+        case 'waifus':
+            waifu().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'cat.jpg', `${title}`, null, null, true))
             break      
         // Group Commands (group admin only)
         case 'kick':
