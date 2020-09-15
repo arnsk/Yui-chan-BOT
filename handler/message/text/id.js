@@ -48,7 +48,7 @@ Para baixar videos so instagram.
 4. *#twt* _<twitter post url>_
 Para baixar videos do twitter.
 
-Lain-lain:
+Outras:
 1. *#resi* _<kurir>_ _<nomer resi>_
 Para verificar o status de entrega das mercadorias, lista de mensageiros: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
 
