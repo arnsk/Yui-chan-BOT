@@ -58,6 +58,20 @@ Exibe os termos e condições do bot.
 3. *#donasi*
 exibir informações de doação.
 
+4. *#cat*
+imagem aleatoria de um gatinho
+
+5. *#waifu*
+imagem aleatoria de uma waifu
+
+6. *#hentai*
+imagem aleatoria de hentai
+
+7. *#walpapper*
+gera uma walpapper de anime aleatoria
+
+o bot possui uma segunda lista de comandos ao digitar @comandos
+
 Espero que você tenha um ótimo dia!✨`
 }
 
