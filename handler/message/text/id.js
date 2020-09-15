@@ -68,7 +68,7 @@ imagem aleatoria de uma waifu
 imagem aleatoria de hentai
 
 7. *#wallpaper*
-gera uma walpapper de anime aleatoria
+gera uma walpapper aleatoria
 
 8. *#futa*
 gera hentai de futa, ou trap "fravis intensefies"
