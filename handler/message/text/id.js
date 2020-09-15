@@ -73,6 +73,12 @@ gera uma walpapper aleatoria
 8. *#futa*
 gera hentai de futa, ou trap "fravis intensefies"
 
+9. *#botstat*
+estado
+
+10. *#ping*
+ver o ping do bot
+
 o bot possui uma segunda lista de comandos ao digitar @comandos
 
 Espero que você tenha um ótimo dia!✨`
