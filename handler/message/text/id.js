@@ -76,8 +76,11 @@ gera hentai de futa, ou trap "fravis intensefies"
 9. *#botstat*
 estado
 
-10. *#ping*
+10. *#speed*
 ver o ping do bot
+
+11. *#ping*
+ping pong!
 
 o bot possui uma segunda lista de comandos ao digitar @comandos
 
