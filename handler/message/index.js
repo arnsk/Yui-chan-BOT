@@ -236,7 +236,11 @@ module.exports = msgHandler = async (client, message) => {
         case 'futa':
         case 'futanari':
             futa().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'futa.jpg', `${title}`, null, null, true))
-            break            
+            break 
+        case 'hentai':
+        case 'hentais':
+            hentai().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'hentai.jpg', `${title}`, null, null, true))
+            break          
         // Group Commands (group admin only)
         case 'kick':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
