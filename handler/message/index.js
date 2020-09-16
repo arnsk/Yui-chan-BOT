@@ -241,6 +241,27 @@ module.exports = msgHandler = async (client, message) => {
         case 'hentais':
             hentai().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'hentai.jpg', `${title}`, null, null, true))
             break          
+        case 'ping':
+            client.reply(from, 'pong!', id)
+            break      
+        case 'wallpaper':
+        case 'wallpapers':
+            wallpaper().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'wallpaper.jpg', `${title}`, null, null, true))
+            break
+        case 'groupinfo':
+            const grpic = await client.getProfilePicFromServer(chat.id)
+            const groupchat = await client.getChatById(from)
+            const {
+                desc
+            } = groupchat.groupMetadata
+
+            if (grpic == undefined) {
+                var gp1 = errorurl
+            } else {
+                var gp1 = grpic
+            }
+            await client.sendFileFromUrl(from, gp1, 'grp.png', '*' + name + '*\n\n Description:\n ' + `${desc}`)
+            break      
         // Group Commands (group admin only)
         case 'kick':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
