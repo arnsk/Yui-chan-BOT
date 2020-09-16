@@ -71,7 +71,7 @@ imagem aleatoria de hentai
 gera uma walpapper aleatoria
 
 8. *#futa*
-gera hentai de futa, ou trap "fravis intensefies"
+gera hentai de futa "fravis intensefies"
 
 9. *#botstat*
 estado
