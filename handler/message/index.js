@@ -49,7 +49,6 @@ module.exports = msgHandler = async (client, message) => {
         switch (command) {
         // Menu and TnC
         case 'speed':
-        case 'ping':
             await client.sendText(from, `Speed: ${processTime(moment())} _Second_`)
             break
         case 'tnc':
