@@ -32,9 +32,6 @@ Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker o
 2. *#sticker* _<Url Gambar>_
 Para mudar a imagem de url para adesivo.
 
-3. *#gifsticker* _<Giphy URL>_ / *#stickergif* _<Giphy URL>_
-Para transformar um GIF em um adesivo (somente Giphy)
-
 Downloader:
 1. *#tiktok* _<tiktok url> _
 Para baixar vídeos do vídeo tiktok.
@@ -82,7 +79,10 @@ ver o ping do bot
 11. *#ping*
 ping pong!
 
-o bot possui uma segunda lista de comandos ao digitar @comandos
+12. *fale*
+Converter texto em mensagem de voz
+
+13. *adicionais: bodia, bonoite ...*
 
 Espero que você tenha um ótimo dia!✨`
 }
@@ -101,18 +101,14 @@ Para promover membros a administradores do grupo.
 3. *#demote* @user
 Para rebaixar os administradores do Grupo.
 
-4. *#tagall*
-Para mencionar todos os membros do grupo. (Apenas Premium)
-
-5. *#del*
+4. *#del*
 Para deletar uma mensagem do bot (responda à mensagem do bot com #del)`
 }
 
 exports.textDonasi = () => {
     return `
 Olá, obrigado por usar este bot, para apoiar este bot você pode ajudar doando através do seguinte link:
-1. Saweria: https://saweria.co/yogasakti
-2. Trakteer: https://trakteer.id/red-emperor 
+Indisponível
 
 A doação será usada para o desenvolvimento e operação deste bot.
 

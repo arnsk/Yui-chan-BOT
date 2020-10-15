@@ -1,5 +1,6 @@
 const { decryptMedia } = require('@open-wa/wa-automate')
 const { downloader, cekResi, removebg, urlShortener, meme } = require('../../lib')
+const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
 moment.tz.setDefault('Asia/Jakarta').locale('id')
@@ -23,43 +24,32 @@ module.exports = msgHandler = async (client, message) => {
 
         // Checking processTime
         const processTime = now => moment.duration(now - moment(t * 1000)).asSeconds() // t => timestamp when message was received
-
-        const prefix = '#'
+        const prefix = ''
         body = (type === 'chat' && body.startsWith(prefix)) ? body : ((type === 'image' && caption) && caption.startsWith(prefix)) ? caption : ''
         const command = body.slice(prefix.length).trim().split(/ +/).shift().toLowerCase()
         const args = body.slice(prefix.length).trim().split(/ +/).slice(1)
         const isCmd = body.startsWith(prefix)
-
-        // [BETA] Avoid Spam Message
-        if (isCmd && msgFilter.isFiltered(from) && !isGroupMsg) { return console.log(color('[SPAM]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname)) }
-        if (isCmd && msgFilter.isFiltered(from) && isGroupMsg) { return console.log(color('[SPAM]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname), 'in', color(name || formattedTitle)) }
-        //
-        if (!isCmd && !isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Message from', color(pushname)) }
-        if (!isCmd && isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Message from', color(pushname), 'in', color(name || formattedTitle)) }
-        if (isCmd && !isGroupMsg) { console.log(color('[EXEC]'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname)) }
-        if (isCmd && isGroupMsg) { console.log(color('[EXEC]'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname), 'in', color(name || formattedTitle)) }
-
-        // [BETA] Avoid Spam Message
-        msgFilter.addFilter(from)
-
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         const url = args.length !== 0 ? args[0] : ''
         const isUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi)
-
         switch (command) {
         // Menu and TnC
-        case 'speed':
+        case '#speed':
             await client.sendText(from, `Speed: ${processTime(moment())} _Second_`)
             break
-        case 'tnc':
+        case '#tnc':
             await client.sendText(from, menuId.textTnC())
             break
-        case 'menu':
-        case 'help':
+        case '#menu':
+        case '#help':
+        case '!menu':
+        case '@comandos':
+        case '#comandos':
             await client.sendText(from, menuId.textMenu(pushname))
                 .then(() => ((isGroupMsg) && (isGroupAdmins)) ? client.sendText(from, 'Menu Admin Grup: *#menuadmin*') : null)
             break
-        case 'menuadmin':
+        case '#menuadmin':
+        case '#menuadm':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
             if (!isGroupAdmins) return client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             await client.sendText(from, menuId.textAdmin())
@@ -70,6 +60,7 @@ module.exports = msgHandler = async (client, message) => {
             break
         // Sticker Creator
         case 'sticker':
+        case '#sticker':
         case 'stiker': {
             const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
             if (isMedia && args.length === 0) {
@@ -83,10 +74,6 @@ module.exports = msgHandler = async (client, message) => {
                 client.sendImageAsSticker(from, imageBase64)
                     .then(() => client.reply(from, `aqui seu sticker \n\nProcessado em ${processTime(moment())} _Second_`))
             } else if (args[0] === 'nobg') {
-                /**
-                * This is Premium feature.
-                * Check premium feature at https://trakteer.id/red-emperor/showcase or chat Author for Information.
-                */
                 client.reply(from, 'ehhh o que foi isso???', id)
             } else if (args.length === 1) {
                 if (!url.match(isUrl)) { await client.reply(from, 'Desculpe, o link que você enviou é inválido. [Invalid Link]', id) }
@@ -98,36 +85,8 @@ module.exports = msgHandler = async (client, message) => {
             }
             break
         }
-        case 'stikergif':
-        case 'stickergif':
-        case 'gifstiker':
-        case 'gifsticker': {
-            if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
-            const isGiphy = url.match(new RegExp(/https?:\/\/(www\.)?giphy.com/, 'gi'))
-            const isMediaGiphy = url.match(new RegExp(/https?:\/\/media.giphy.com\/media/, 'gi'))
-            if (isGiphy) {
-                const getGiphyCode = url.match(new RegExp(/(\/|\-)(?:.(?!(\/|\-)))+$/, 'gi'))
-                if (!getGiphyCode) { return client.reply(from, 'Falha ao recuperar o código giphy', id) }
-                const giphyCode = getGiphyCode[0].replace(/[-\/]/gi, '')
-                console.log(giphyCode)
-                const smallGifUrl = 'https://media.giphy.com/media/' + giphyCode + '/giphy-downsized.gif'
-                client.sendGiphyAsSticker(from, smallGifUrl)
-                    .then(() => client.reply(from, `aqui seu sticker \n\nProcessesado em ${processTime(moment())} _Second_`))
-                    .catch((err) => console.log(err))
-            } else if (isMediaGiphy) {
-                const gifUrl = url.match(new RegExp(/(giphy|source).(gif|mp4)/, 'gi'))
-                if (!gifUrl) { return client.reply(from, 'Falha ao recuperar o código giphy', id) }
-                const smallGifUrl = url.replace(gifUrl[0], 'giphy-downsized.gif')
-                client.sendGiphyAsSticker(from, smallGifUrl)
-                    .then(() => client.reply(from, `aqui seu sticker \n\nProcessado em ${processTime(moment())} _Second_`))
-                    .catch((err) => console.log(err))
-            } else {
-                await client.reply(from, 'desculpe, por enquanto os adesivos gif só podem usar o link do giphy.  [Giphy Only]', id)
-            }
-            break
-        }
         // Video Downloader
-        case 'tiktok':
+        case '#tiktok':
             if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             if (!url.match(isUrl) && !url.includes('tiktok.com')) return client.reply(from, 'Desculpe, o link que você enviou é inválido. [Invalid Link]', id)
             await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
@@ -141,8 +100,8 @@ module.exports = msgHandler = async (client, message) => {
                     client.reply(from, 'Falha ao recuperar metadados, o link que você enviou é inválido. [Invalid Link]', id)
                 })
             break
-        case 'ig':
-        case 'instagram':
+        case '#ig':
+        case '#instagram':
             if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             if (!url.match(isUrl) && !url.includes('instagram.com')) return client.reply(from, 'Desculpe, o link que você enviou é inválido. [Invalid Link]', id)
             await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
@@ -164,8 +123,8 @@ module.exports = msgHandler = async (client, message) => {
                     client.reply(from, 'Error, user link privado ou errado [Private or Invalid Link]', id)
                 })
             break
-        case 'twt':
-        case 'twitter':
+        case '#twt':
+        case '#twitter':
             if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             if (!url.match(isUrl) & !url.includes('twitter.com') || url.includes('t.co')) return client.reply(from, 'Desculpe, o url que você enviou é inválido. [Invalid Link]', id)
             await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
@@ -186,8 +145,8 @@ module.exports = msgHandler = async (client, message) => {
                 })
                 .catch(() => client.sendText(from, 'Desculpe, o link é inválido ou não há mídia no link que você enviou. [Invalid Link]'))
             break
-        case 'fb':
-        case 'facebook':
+        case '#fb':
+        case '#facebook':
             if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             if (!url.match(isUrl) && !url.includes('facebook.com')) return client.reply(from, 'Desculpe, o url que você enviou é inválido. [Invalid Link]', id)
             await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
@@ -211,8 +170,9 @@ module.exports = msgHandler = async (client, message) => {
                 .catch((err) => client.reply(from, `Error, URL inválido ou vídeo não carregado. [Invalid Link or No Video] \n\n${err}`, id))
             break
         // Other Command
-        case 'mim':
-        case 'memes':
+        case '#mim':
+        case '#memes':
+        case '#meme':
         case 'meme':
             meme().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'meme.jpg', `${title}`, null, null, true))
             break
@@ -223,31 +183,33 @@ module.exports = msgHandler = async (client, message) => {
             console.log('Verifique o No. do recibo', args[1], 'por expedição', args[0])
             cekResi(args[0], args[1]).then((result) => client.sendText(from, result))
             break
-        case 'cat':
-        case 'cats':
-        case 'kitten':
+        case '#cat':
+        case '#cats':
+        case '#kitten':
             cat().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'cat.jpg', `${title}`, null, null, true))
             break
+        case '#waifu':
+        case '#waifus':
         case 'waifu':
-        case 'waifus':
             waifu().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'waifu.jpg', `${title}`, null, null, true))
             break      
+        case '#futa':
         case 'futa':
-        case 'futanari':
+        case '#futanari':
             futa().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'futa.jpg', `${title}`, null, null, true))
             break 
-        case 'hentai':
-        case 'hentais':
+        case '#hentai':
+        case '#hentais':
             hentai().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'hentai.jpg', `${title}`, null, null, true))
             break          
-        case 'ping':
+        case '#ping':
             client.reply(from, 'pong!', id)
             break      
-        case 'wallpaper':
-        case 'wallpapers':
+        case '#wallpaper':
+        case '#wallpapers':
             wallpaper().then(({ title, url }) => client.sendFileFromUrl(from, `${url}`, 'wallpaper.jpg', `${title}`, null, null, true))
             break
-        case 'groupinfo':
+        case '#infogrupo':
             const grpic = await client.getProfilePicFromServer(chat.id)
             const groupchat = await client.getChatById(from)
             const {
@@ -262,7 +224,7 @@ module.exports = msgHandler = async (client, message) => {
             await client.sendFileFromUrl(from, gp1, 'grp.png', '*' + name + '*\n\n Description:\n ' + `${desc}`)
             break      
         // Group Commands (group admin only)
-        case 'kick':
+        case '#kick':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
             if (!isGroupAdmins) return client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             if (!isBotGroupAdmins) return client.reply(from, 'Falha, adicione o bot como administrador do grupo! [Bot Not Admin]', id)
@@ -274,7 +236,7 @@ module.exports = msgHandler = async (client, message) => {
                 await client.removeParticipant(groupId, mentionedJidList[i])
             }
             break
-        case 'promote':
+        case '#promote':
             if (!isGroupMsg) return await client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
             if (!isGroupAdmins) return await client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             if (!isBotGroupAdmins) return await client.reply(from, 'Falha, adicione o bot como administrador do grupo! [Bot not Admin]', id)
@@ -284,7 +246,7 @@ module.exports = msgHandler = async (client, message) => {
             await client.promoteParticipant(groupId, mentionedJidList[0])
             await client.sendTextWithMentions(from, `Request diterima, menambahkan @${mentionedJidList[0].replace('@c.us', '')} sebagai admin.`)
             break
-        case 'demote':
+        case '#demote':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
             if (!isGroupAdmins) return client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             if (!isBotGroupAdmins) return client.reply(from, 'Falha, adicione o bot como administrador do grupo! [Bot not Admin]', id)
@@ -294,37 +256,124 @@ module.exports = msgHandler = async (client, message) => {
             await client.demoteParticipant(groupId, mentionedJidList[0])
             await client.sendTextWithMentions(from, `Pedido aceito, remover posição @${mentionedJidList[0].replace('@c.us', '')}.`)
             break
-        case 'bye':
+        case '#sair':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
             if (!isGroupAdmins) return client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             client.sendText(from, 'Good bye... ( ⇀‸↼‶ )').then(() => client.leaveGroup(groupId))
             break
-        case 'del':
+        case '#del':
             if (!isGroupAdmins) return client.reply(from, 'Falha, este comando só pode ser usado por administradores de grupo! [Admin Group Only]', id)
             if (!quotedMsg) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             if (!quotedMsgObj.fromMe) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             client.deleteMessage(quotedMsgObj.chatId, quotedMsgObj.id, false)
                 .then(() => client.reply(from, 'Mensagens excluídas com sucesso. [Deleted]', id))
             break
-        case 'tagall':
-        case 'everyone':
-            /**
-            * This is Premium feature.
-            * Check premium feature at https://trakteer.id/red-emperor/showcase or chat Author for Information.
-            */
+        case 'pika':
+        case 'pau':
             client.reply(from, 'ehhh, o que é isso ???', id)
             break
-        case 'botstat': {
+        case 'yui':
+        case 'yui-chan':
+        case 'yuui':
+        case 'yui-chan':
+            client.reply(from, 'F-falou cmg ??')
+            client.reply(from, 'Ac-cho que sim :3')
+            break
+        case 'para':
+            client.reply(from, 'Paro nada n, ta doido?')
+            break
+        case 'teamo':
+        case 'amo':
+            client.reply(from, 'ee--h vc me ama? senpai')
+            break
+        case 'tamilis':
+        case 'tata':
+        case 'tamires':
+            client.reply(from, 'Tamilis Tamilis')
+            break
+        case 'mamãe':
+            client.reply(from, 'Minnha mamãe é a Tamilis é muito muito linda e ainda tem um pauzão :3')
+            break
+        case 'papai':
+            client.reply(from, 'Meu papai e o Luiz e ele gosta muiito da Tamilis')
+            break
+        case 'elogio':
+            client.reply(from, 'Pauzao esse seu em')
+            break
+        case 'f':
+            client.reply(from, 'F')
+            break 
+        case 'adeus':
+        case 'flw':
+            client.reply(from, 'Ate mais amiguinho')
+            break
+        case 'tendi':
+            client.reply(from, 'Tendi tmb')
+            break
+        case 'bonoite':
+            client.reply(from, 'Boa noiite :)')
+            break
+        case 'bodia':
+        case 'bondia':
+        case 'bundia':
+            client.reply(from, pushname)
+            client.reply(from, 'Buundinhaa, dormiu bem ?')
+            break
+        case '#tts':
+        case '#fala':
+        case 'diga':
+        case 'fale':
+            if (args.length === 1) return client.reply(from, pushname, 'Comando incorreto '), client.reply(from,'comando correto : fale [idioma] [mensagem]'), client.reply(from, 'Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português')
+            const ttsId = require('node-gtts')('id')
+            const ttsEn = require('node-gtts')('en')
+        const ttsJp = require('node-gtts')('ja')
+            const ttsAr = require('node-gtts')('ar')
+            const ttspt = require('node-gtts')('pt-br')
+            const dataText = body.slice(8)
+            if (dataText === '') return client.reply(from, 'Baka?', id)
+            if (dataText.length > 500) return client.reply(from, 'Texto muito longo!', id)
+            var dataBhs = body.slice(5, 7)
+        if (dataBhs == 'id') {
+                ttsId.save('./media/tts/resId.mp3', dataText, function () {
+                client.sendPtt(from, './media/tts/resId.mp3', id)
+                })
+            } else if (dataBhs == 'en') {
+                ttsEn.save('./media/tts/resEn.mp3', dataText, function () {
+                    client.sendPtt(from, './media/tts/resEn.mp3', id)
+                })
+            } else if (dataBhs == 'jp') {
+                ttsJp.save('./media/tts/resJp.mp3', dataText, function () {
+                client.sendPtt(from, './media/tts/resJp.mp3', id)
+                })
+        } else if (dataBhs == 'ar') {
+                ttsAr.save('./media/tts/resAr.mp3', dataText, function () {
+                client.sendPtt(from, './media/tts/resAr.mp3', id)
+                })
+        } else if (dataBhs == 'pt'){
+                ttspt.save('./media/tts/resPT.mp3', dataText, function (){
+                client.sendPtt(from, './media/tts/resPT.mp3', id)
+                })
+            } else {
+                client.reply(from, 'Comando incorreto')
+                client.reply(from, 'comando correto : fale [idioma] [mensagem]', id)
+                client.reply('Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português')
+
+            }
+            break
+        case '#botstat': {
             const loadedMsg = await client.getAmountOfLoadedMessages()
             const chatIds = await client.getAllChatIds()
             const groups = await client.getAllGroups()
-            client.sendText(from, `Status :\n- *${loadedMsg}* Loaded Messages\n- *${groups.length}* Group Chats\n- *${chatIds.length - groups.length}* Personal Chats\n- *${chatIds.length}* Total Chats`)
+            client.reply(from, `Status :\n- *${loadedMsg}* Loaded Messages\n- *${groups.length}* Group Chats\n- *${chatIds.length - groups.length}* Personal Chats\n- *${chatIds.length}* Total Chats`)
             break
         }
         default:
             console.log(color('[ERROR]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Unregistered Command from', color(pushname))
             break
         }
+
+    
+
     } catch (err) {
         console.log(color('[ERROR]', 'red'), err)
     }
