@@ -2,19 +2,6 @@
  
 # Whatsapp Bot - sticker creator
 [![Codefactor](https://www.codefactor.io/repository/github/yogasakti/imagetosticker/badge)](https://www.codefactor.io/repository/github/yogasakti/imagetosticker)
-<details>
- <summary>🥟 Help me!</summary>
-
- [Saweria](https://saweria.co/donate/yogasakti)
- 
- [Trakteer](https://trakteer.id/red-emperor)
- 
- [Paypal.me](paypal.me/red3mperor)
- 
-</details>
-</div>
-
-
 
 ## Features
 
@@ -23,8 +10,6 @@
 |       ✅       | Send Photo with Caption          |
 |       ✅       | Reply A Photo                    |
 |       ✅       | Image Url                        |
-|       ✅       | Animated sticker using giphy url |
-|       https://bit.ly/3hmgD4R       | sticker with no background       |
 
 
 | Downloader |                     Feature                |
@@ -39,8 +24,6 @@
 | :------------: | :---------------------------------------------: |
 |       ✅        |   get a meme from random subreddit            |
 |       ✅        |   Check Shipping info (indonesia only)         |
-|      BETA        |   Anti Spam                                    |
-
 
 | Grup Only  |                     Feature                     |
 | :------------: | :---------------------------------------------: |
@@ -50,10 +33,7 @@
 |       ✅        |   Delete bot message            |
 |       https://bit.ly/3hmgD4R        |   Mention All User      |
 
-## To-Do
- - Add More Feature
- - More refactoring
- 
+
 ---
 
 ## Getting Started
@@ -64,13 +44,12 @@ This project require NodeJS v12.
 Clone this project
 
 ```bash
-> git clone https://github.com/YogaSakti/imageToSticker.git
-> cd imageToSticker
+> git clone https://github.com/lotaviods/Yui-chan-BOT
+>
 ```
 
 Install the dependencies:
 
-```bash
 > npm install
 ```
 
