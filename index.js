@@ -34,10 +34,10 @@ const startServer = () => {
                     .then((ids) => {
                         console.log('[CLIENT]', color(`Invited to Group. [ ${name} : ${ids.length}]`, 'yellow'))
                         // conditions if the group members are less than 10 then the bot will leave the group
-                        if (ids.length <= 10) {
-                            client.sendText(id, 'Sorry, the minimum group member is 10 user to use this bot. Bye~').then(() => client.leaveGroup(id))
+                        if (ids.length <= 5) {
+                            client.sendText(id, 'Desculpe, o mininmo é de 5 usuarios Bye~').then(() => client.leaveGroup(id))
                         } else {
-                            client.sendText(id, `Hello group members *${name}*, thank you for inviting this bot, to see the bot menu send *#menu*`)
+                            client.sendText(id, `Olá amgios *${name}*, obrigado por adicionar esse bot, para ver o menu do bot digite *#menu*`)
                         }
                     }))
 
