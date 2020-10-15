@@ -316,8 +316,7 @@ module.exports = msgHandler = async (client, message) => {
         case 'bodia':
         case 'bondia':
         case 'bundia':
-            client.reply(from, pushname)
-            client.reply(from, 'Buundinhaa, dormiu bem ?')
+            client.reply(from, 'Buundinhaa, ', pushname, 'dormiu bem ?')
             break
         case '#tts':
         case '#fala':
