@@ -326,12 +326,13 @@ module.exports = msgHandler = async (client, message) => {
         case '#fala':
         case 'diga':
         case 'fale':
-            if (args.length === 1) return client.reply(from, pushname, 'Comando incorreto '), client.reply(from,'comando correto : fale [idioma] [mensagem]'), client.reply(from, 'Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português')
+            if (args.length === 1) return client.reply(from, pushname, 'Comando incorreto '), client.reply(from,'comando correto : fale [idioma] [mensagem]'), client.reply(from, 'Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português e [es] para espanhol')
             const ttsId = require('node-gtts')('id')
             const ttsEn = require('node-gtts')('en')
         const ttsJp = require('node-gtts')('ja')
             const ttsAr = require('node-gtts')('ar')
             const ttspt = require('node-gtts')('pt-br')
+            const ttses = require('node-gtts')('es-es')
             const dataText = body.slice(8)
             if (dataText === '') return client.reply(from, 'Baka?', id)
             if (dataText.length > 500) return client.reply(from, 'Texto muito longo!', id)
@@ -356,10 +357,14 @@ module.exports = msgHandler = async (client, message) => {
                 ttspt.save('./media/tts/resPT.mp3', dataText, function (){
                 client.sendPtt(from, './media/tts/resPT.mp3', id)
                 })
+            } else if (dataBhs == 'es'){
+                ttses.save('./media/tts/resES.mp3', dataText, function (){
+                client.sendPtt(from, './media/tts/resES.mp3', id)
+                })
             } else {
                 client.reply(from, 'Comando incorreto')
                 client.reply(from, 'comando correto : fale [idioma] [mensagem]', id)
-                client.reply('Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português')
+                client.reply('Insira os dados do idioma:'), client.reply(from, '[id] para indonésio, [en] para inglês, [jp] para japonês e [ar] para árabe, [pt] para português e [es] para espanhol')
 
             }
             break
