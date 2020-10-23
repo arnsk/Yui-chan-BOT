@@ -3,7 +3,7 @@ const { downloader, cekResi, removebg, urlShortener, meme } = require('../../lib
 const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
-moment.tz.setDefault('Asia/Jakarta').locale('id')
+moment.tz.setDefault('America/Sao_Paulo').locale('id')
 
 const { menuId, menuEn } = require('./text') // Indonesian & English menu
 
@@ -21,7 +21,8 @@ module.exports = msgHandler = async (client, message) => {
         const groupMembers = isGroupMsg ? await client.getGroupMembersId(groupId) : ''
         const isGroupAdmins = groupAdmins.includes(sender.id) || false
         const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
-
+        const ownerNumber = '5514981773870@c.us'
+        const isOwner = sender.id === ownerNumber
         // Checking processTime
         const processTime = now => moment.duration(now - moment(t * 1000)).asSeconds() // t => timestamp when message was received
         const prefix = ''
@@ -248,7 +249,7 @@ module.exports = msgHandler = async (client, message) => {
             if (groupAdmins.includes(mentionedJidList[0])) return await client.reply(from, 'Desculpe, o usuário já é um administrador. [Bot is Admin]', id)
             if (mentionedJidList[0] === botNumber) return await client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
             await client.promoteParticipant(groupId, mentionedJidList[0])
-            await client.sendTextWithMentions(from, `Request diterima, menambahkan @${mentionedJidList[0].replace('@c.us', '')} sebagai admin.`)
+            await client.sendTextWithMentions(from, `Solicitação recebida, adicionado @${mentionedJidList[0].replace('@c.us', '')} como administrador.`)
             break
         case '#demote':
             if (!isGroupMsg) return client.reply(from, 'Desculpe, este comando só pode ser usado dentro do grupo! [Group Only]', id)
@@ -320,7 +321,7 @@ module.exports = msgHandler = async (client, message) => {
         case 'bodia':
         case 'bondia':
         case 'bundia':
-            client.reply(from, 'Buundinhaa, ', pushname, 'dormiu bem ?')
+            client.reply(from, 'Buundinhaa, dormiu bem ?')
             break
         case '#tts':
         case '#fala':
@@ -368,6 +369,40 @@ module.exports = msgHandler = async (client, message) => {
 
             }
             break
+            case '#sgif':
+                if (isMedia) {
+                    if (mimetype === 'video/mp4' && message.duration < 10 || mimetype === 'image/gif' && message.duration < 10) {
+                        const mediaData = await decryptMedia(message, uaOverride)
+                        client.reply(from, '[WAIT] Em andamento⏳ aguarde ± 1 min!', id)
+                        const filename = `./media/aswu.${mimetype.split('/')[1]}`
+                        await fs.writeFileSync(filename, mediaData)
+                        await exec(`gify ${filename} ./media/output.gif --fps=30 --scale=240:240`, async function (error, stdout, stderr) {
+                            const gif = await fs.readFileSync('./media/output.gif', { encoding: "base64" })
+                            await client.sendImageAsSticker(from, `data:image/gif;base64,${gif.toString('base64')}`)
+                        })
+                    } else (
+                        client.reply(from, '[❗] Envie um vídeo com a legenda *#StickerGif * máximo de 10 segundos!', id)
+                    )
+                }
+                break
+            case '#leaveall':
+                if (!isOwner) return client.reply(from, 'Este comando é apenas para proprietários do bot', id)
+                const allChats = await client.getAllChatIds()
+                const allGroups = await client.getAllGroups()
+                for (let gclist of allGroups) {
+                    await client.sendText(gclist.contact.id, `Desculpe, o bot está limpando, chat total está ativo : ${allChats.length}`)
+                    await client.leaveGroup(gclist.contact.id)
+                }
+                client.reply(from, 'Sucessos saer de todos os grupos!', id)
+                break
+                case '#clearall':
+                    if (!isOwner) return client.reply(from, 'Este comando é apenas para proprietários do bot', id)
+                    const allChatz = await client.getAllChats()
+                    for (let dchat of allChatz) {
+                        await client.deleteChat(dchat.id)
+                    }
+                    client.reply(from, 'Sucesso limpar todo o chat!', id)
+                    break
         case '#botstat': {
             const loadedMsg = await client.getAmountOfLoadedMessages()
             const chatIds = await client.getAllChatIds()

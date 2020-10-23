@@ -52,37 +52,34 @@ Para verificar o status de entrega das mercadorias, lista de mensageiros: jne, p
 2. *#tnc*
 Exibe os termos e condições do bot.
 
-3. *#donasi*
-exibir informações de doação.
-
-4. *#cat*
+3. *#cat*
 imagem aleatoria de um gatinho
 
-5. *#waifu*
+4. *#waifu*
 imagem aleatoria de uma waifu
 
-6. *#hentai*
+5. *#hentai*
 imagem aleatoria de hentai
 
-7. *#wallpaper*
+6. *#wallpaper*
 gera uma walpapper aleatoria
 
-8. *#futa*
+7. *#futa*
 gera hentai de futa "fravis intensefies"
 
-9. *#botstat*
+8. *#botstat*
 estado
 
-10. *#speed*
+9. *#speed*
 ver o ping do bot
 
-11. *#ping*
+10. *#ping*
 ping pong!
 
-12. *fale*
+11. *fale*
 Converter texto em mensagem de voz
 
-13. *adicionais: bodia, bonoite ...*
+12. *adicionais: bodia, bonoite ...*
 
 Espero que você tenha um ótimo dia!✨`
 }
