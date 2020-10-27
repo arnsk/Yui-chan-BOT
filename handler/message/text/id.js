@@ -24,7 +24,7 @@ exports.textMenu = (pushname) => {
     return `
 Oi, ${pushname}! 👋️
 Aqui estão alguns dos recursos deste bot! ✨
-
+                Versão antiga devido travamentos- em testes 
 Sticker Creator:
 1. *#sticker*
 Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker ou responda às imagens que foram enviadas com #sticker)
