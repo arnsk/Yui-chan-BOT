@@ -40,7 +40,11 @@ module.exports = msgHandler = async (client, message) => {
         switch (command) {
         // Menu and TnC
         case '#messageAll':
-            if (isOwner) return client.sendText('Bot reiniciando')
+            if (isOwner){
+            for (let gclist of allGroups) {
+                await client.sendText(gclist.contact.id, 'Desculpe, o bot está sendo reiniciado ${allChats.length}')
+            }
+        }
             break
         case '#speed':
             await client.sendText(from, `Speed: ${processTime(moment())} _Second_`)
