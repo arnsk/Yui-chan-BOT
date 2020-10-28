@@ -22,66 +22,69 @@ Atenciosamente, Yoga Sakti.`
 
 exports.textMenu = (pushname) => {
     return `
-Oi, ${pushname}! 👋️
-Aqui estão alguns dos recursos deste bot! ✨
-                Versão antiga devido travamentos- em testes 
-Sticker Creator:
-1. *#sticker*
-Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker ou responda às imagens que foram enviadas com #sticker)
-
-2. *#sticker* _<Url Gambar>_
-Para mudar a imagem de url para adesivo.
-
-Downloader:
-1. *#tiktok* _<tiktok url> _
-Para baixar vídeos do vídeo tiktok.
-
-2. *#fb* _<post/video url>_
-Para baixar videos do facebook.
-
-3. *#ig* _<instagram post url>_
-Para baixar videos so instagram.
-
-4. *#twt* _<twitter post url>_
-Para baixar videos do twitter.
-
-Outras:
-1. *#resi* _<kurir>_ _<nomer resi>_
-Para verificar o status de entrega das mercadorias, lista de mensageiros: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
-
-2. *#tnc*
-Exibe os termos e condições do bot.
-
-3. *#cat*
-imagem aleatoria de um gatinho
-
-4. *#waifu*
-imagem aleatoria de uma waifu
-
-5. *#hentai*
-imagem aleatoria de hentai
-
-6. *#wallpaper*
-gera uma walpapper aleatoria
-
-7. *#futa*
-gera hentai de futa "fravis intensefies"
-
-8. *#botstat*
-estado
-
-9. *#speed*
-ver o ping do bot
-
-10. *#ping*
-ping pong!
-
-11. *fale*
-Converter texto em mensagem de voz
-
-12. *adicionais: bodia, bonoite ...*
-
-Espero que você tenha um ótimo dia!✨`
+    Oi, ${pushname}! 👋️ 
+    ┏ ❣ *Yui chan BOT* ❣
+    ╿   Trabalhando em melhorias.
+  ╽   ✨ Aqui estão alguns dos recursos deste bot! ✨
+╽       Versão antiga devido travamentos- em testes 
+╽ Sticker Creator:
+┠❥ 1. *#sticker*
+╽ Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker ou responda às imagens que foram enviadas com #sticker)
+╽ 
+┠❥ 2. *#sticker* _<Url Gambar>_
+╽ Para mudar a imagem de url para adesivo.
+╽
+╽Downloader:
+┠❥1. *#tiktok* _<tiktok url> _
+╽Para baixar vídeos do vídeo tiktok.
+╽
+┠❥2. *#fb* _<post/video url>_
+╽Para baixar videos do facebook.
+╽
+┠❥3. *#ig* _<instagram post url>_
+╽Para baixar videos so instagram.
+╽
+┠❥4. *#twt* _<twitter post url>_
+╽Para baixar videos do twitter.
+╽
+╽Outras:
+┠❥1. *#resi* _<kurir>_ _<nomer resi>_
+╽Para verificar o status de entrega das mercadorias, lista de mensageiros: jne, pos, tiki, wahana, jnt, rpx, sap, sicepat, pcp, jet, dse, first, ninja, lion, idl, rex.
+╽
+┠❥2. *#tnc*
+╽Exibe os termos e condições do bot.
+╽
+┠❥3. *#cat*
+╽imagem aleatoria de um gatinho
+╽
+┠❥4. *#waifu*
+╽imagem aleatoria de uma waifu
+╽
+┠❥5. *#hentai*
+╽imagem aleatoria de hentai
+╽
+┠❥6. *#wallpaper*
+╽gera uma walpapper aleatoria
+╽
+┠❥7. *#futa*
+╽gera hentai de futa "fravis intensefies"
+╽
+┠❥8. *#botstat*
+╽estado
+╽
+┠❥9. *#speed*
+╽ver o ping do bot
+╽
+┠❥10. *#ping*
+╽ping pong!
+╽
+┠❥11. *fale*
+╽Converter texto em mensagem de voz
+╽
+┠❥12. *adicionais: bodia, bonoite ...*
+╽
+┠❥13. *#loli*
+╽Espero que você tenha um ótimo dia!✨`
 }
 
 exports.textAdmin = () => {

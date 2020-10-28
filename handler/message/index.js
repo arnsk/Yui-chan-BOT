@@ -39,6 +39,9 @@ module.exports = msgHandler = async (client, message) => {
         if (isCmd && isGroupMsg) { console.log(color('[EXEC]'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'de', color(pushname), 'em', color(name || formattedTitle)) }
         switch (command) {
         // Menu and TnC
+        case '#messageAll':
+            if (isOwner) return client.sendText('Bot reiniciando')
+            break
         case '#speed':
             await client.sendText(from, `Speed: ${processTime(moment())} _Second_`)
             break
@@ -385,24 +388,10 @@ module.exports = msgHandler = async (client, message) => {
                     )
                 }
                 break
-            case '#leaveall':
-                if (!isOwner) return client.reply(from, 'Este comando é apenas para proprietários do bot', id)
-                const allChats = await client.getAllChatIds()
-                const allGroups = await client.getAllGroups()
-                for (let gclist of allGroups) {
-                    await client.sendText(gclist.contact.id, `Desculpe, o bot está limpando, chat total está ativo : ${allChats.length}`)
-                    await client.leaveGroup(gclist.contact.id)
-                }
-                client.reply(from, 'Sucessos saer de todos os grupos!', id)
-                break
-                case '#clearall':
-                    if (!isOwner) return client.reply(from, 'Este comando é apenas para proprietários do bot', id)
-                    const allChatz = await client.getAllChats()
-                    for (let dchat of allChatz) {
-                        await client.deleteChat(dchat.id)
-                    }
-                    client.reply(from, 'Sucesso limpar todo o chat!', id)
-                    break
+        case '#loli':
+            const loli = await get.get('https://mhankbarbar.herokuapp.com/api/randomloli').json()
+            client.sendFileFromUrl(from, loli.result, 'loli.jpeg', 'Lolinya om', id)
+        break
         case '#botstat': {
             const loadedMsg = await client.getAmountOfLoadedMessages()
             const chatIds = await client.getAllChatIds()
