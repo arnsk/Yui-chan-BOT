@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
 moment.tz.setDefault('America/Sao_Paulo').locale('id')
-
+const get = require('got')
 const { menuId, menuEn } = require('./text') // Indonesian & English menu
 
 module.exports = msgHandler = async (client, message) => {
@@ -94,91 +94,7 @@ module.exports = msgHandler = async (client, message) => {
             break
         }
         // Video Downloader
-        case '#tiktok':
-            if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
-            if (!url.match(isUrl) && !url.includes('tiktok.com')) return client.reply(from, 'Desculpe, o link que você enviou é inválido. [Invalid Link]', id)
-            await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
-            downloader.tiktok(url)
-                .then(async (videoMeta) => {
-                    const filename = videoMeta.authorMeta.name + '.mp4'
-                    const caps = `*Metadata:*\nUsername: ${videoMeta.authorMeta.name} \nMusic: ${videoMeta.musicMeta.musicName} \nView: ${videoMeta.playCount.toLocaleString()} \nLike: ${videoMeta.diggCount.toLocaleString()} \nComment: ${videoMeta.commentCount.toLocaleString()} \nShare: ${videoMeta.shareCount.toLocaleString()} \nCaption: ${videoMeta.text.trim() ? videoMeta.text : '-'}\n\nProcessed for ${processTime(moment())} _Second_`
-                    await client.sendFileFromUrl(from, videoMeta.url, filename, videoMeta.NoWaterMark ? caps : `⚠ Vídeos sem marca d/'água não estão disponíveis. \n\n${caps}`, '', { headers: { 'User-Agent': 'okhttp/4.5.0' } }, true)
-                        .then((serialized) => console.log(`Sukses Mengirim File dengan id: ${serialized}`)).catch((err) => console.error(err))
-                }).catch(() => {
-                    client.reply(from, 'Falha ao recuperar metadados, o link que você enviou é inválido. [Invalid Link]', id)
-                })
-            break
-        case '#ig':
-        case '#instagram':
-            if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
-            if (!url.match(isUrl) && !url.includes('instagram.com')) return client.reply(from, 'Desculpe, o link que você enviou é inválido. [Invalid Link]', id)
-            await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
-            downloader.insta(url)
-                .then(async (data) => {
-                    if (data.type == 'GraphSidecar') {
-                        if (data.image.length != 0) data.image.map((x) => client.sendFileFromUrl(from, x, 'photo.jpg', `[ Processed for ${processTime(moment())} _Second_ ]`, null, null, true)).then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                        if (data.video.length != 0) data.video.map((x) => client.sendFileFromUrl(from, x.videoUrl, 'video.jpg', `[ Processed for ${processTime(moment())} _Second_ ]`, null, null, true)).then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                    } else if (data.type == 'GraphImage') {
-                        await client.sendFileFromUrl(from, data.image, 'photo.jpg', `[ Processed for ${processTime(moment())} _Second_ ]`, null, null, true)
-                            .then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                    } else if (data.type == 'GraphVideo') {
-                        await client.sendFileFromUrl(from, data.video.videoUrl, 'video.mp4', `[ Processed for ${processTime(moment())} _Second_ ]`, null, null, true)
-                            .then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                    }
-                })
-                .catch((err) => {
-                    if (err === 'Not a video') { return client.reply(from, 'Erro, não há vídeo no link que você enviou. [Invalid Link]', id) }
-                    client.reply(from, 'Error, user link privado ou errado [Private or Invalid Link]', id)
-                })
-            break
-        case '#twt':
-        case '#twitter':
-            if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
-            if (!url.match(isUrl) & !url.includes('twitter.com') || url.includes('t.co')) return client.reply(from, 'Desculpe, o url que você enviou é inválido. [Invalid Link]', id)
-            await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
-            downloader.tweet(url)
-                .then(async (data) => {
-                    if (data.type === 'video') {
-                        const content = data.variants.filter(x => x.content_type !== 'application/x-mpegURL').sort((a, b) => b.bitrate - a.bitrate)
-                        const result = await urlShortener(content[0].url)
-                        console.log('Shortlink: ' + result)
-                        await client.sendFileFromUrl(from, content[0].url, 'video.mp4', `Link Download: ${result} \n\nProcessed for ${processTime(moment())} _Second_`, null, null, true)
-                            .then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                    } else if (data.type === 'photo') {
-                        for (let i = 0; i < data.variants.length; i++) {
-                            await client.sendFileFromUrl(from, data.variants[i], data.variants[i].split('/media/')[1], '', null, null, true)
-                                .then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                        }
-                    }
-                })
-                .catch(() => client.sendText(from, 'Desculpe, o link é inválido ou não há mídia no link que você enviou. [Invalid Link]'))
-            break
-        case '#fb':
-        case '#facebook':
-            if (args.length !== 1) return client.reply(from, 'Desculpe, o formato da mensagem está errado, verifique o menu. [Wrong Format]', id)
-            if (!url.match(isUrl) && !url.includes('facebook.com')) return client.reply(from, 'Desculpe, o url que você enviou é inválido. [Invalid Link]', id)
-            await client.reply(from, '_Scraping Metadata..._ \n\nObrigado por usar este bot, você pode ajudar no desenvolvimento deste bot perguntando através de https://saweria.co/donate/yogasakti ou https://trakteer.id/red-emperor \nTerimakasih.', id)
-            downloader.facebook(url)
-                .then(async (videoMeta) => {
-                    const title = videoMeta.response.title
-                    const thumbnail = videoMeta.response.thumbnail
-                    const links = videoMeta.response.links
-                    const shorts = []
-                    for (let i = 0; i < links.length; i++) {
-                        const shortener = await urlShortener(links[i].url)
-                        console.log('Shortlink: ' + shortener)
-                        links[i].short = shortener
-                        shorts.push(links[i])
-                    }
-                    const link = shorts.map((x) => `${x.resolution} Quality: ${x.short}`)
-                    const caption = `Text: ${title} \n\nLink Download: \n${link.join('\n')} \n\nProcessed for ${processTime(moment())} _Second_`
-                    await client.sendFileFromUrl(from, thumbnail, 'videos.jpg', caption, null, null, true)
-                        .then((serialized) => console.log(`Envio de arquivos com sucesso com id: ${serialized}`)).catch((err) => console.error(err))
-                })
-                .catch((err) => client.reply(from, `Error, URL inválido ou vídeo não carregado. [Invalid Link or No Video] \n\n${err}`, id))
-            break
-        // Other Command
-        case '#mim':
+                case '#mim':
         case '#memes':
         case '#meme':
         case 'meme':

@@ -34,18 +34,6 @@ exports.textMenu = (pushname) => {
 ┠❥ 2. *#sticker* _<Url Gambar>_
 ╽ Para mudar a imagem de url para adesivo.
 ╽
-╽Downloader:
-┠❥1. *#tiktok* _<tiktok url> _
-╽Para baixar vídeos do vídeo tiktok.
-╽
-┠❥2. *#fb* _<post/video url>_
-╽Para baixar videos do facebook.
-╽
-┠❥3. *#ig* _<instagram post url>_
-╽Para baixar videos so instagram.
-╽
-┠❥4. *#twt* _<twitter post url>_
-╽Para baixar videos do twitter.
 ╽
 ╽Outras:
 ┠❥1. *#resi* _<kurir>_ _<nomer resi>_
@@ -108,7 +96,7 @@ Para deletar uma mensagem do bot (responda à mensagem do bot com #del)`
 exports.textDonasi = () => {
     return `
 Olá, obrigado por usar este bot, para apoiar este bot você pode ajudar doando através do seguinte link:
-Indisponível
+https://www.paypal.com/donate?hosted_button_id=GDR4ZG8QAVDSQ
 
 A doação será usada para o desenvolvimento e operação deste bot.
 
