@@ -1,5 +1,6 @@
 const { decryptMedia } = require('@open-wa/wa-automate')
-const { downloader, cekResi, removebg, urlShortener, meme, welcome } = require('../../lib')
+const { downloader, cekResi, removebg, urlShortener, meme } = require('../../lib')
+const welcome = require('../../lib/welcome')
 const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
