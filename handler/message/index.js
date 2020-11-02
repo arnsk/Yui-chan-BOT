@@ -6,7 +6,7 @@ const moment = require('moment-timezone')
 moment.tz.setDefault('America/Sao_Paulo').locale('id')
 const get = require('got')
 const { menuId, menuEn } = require('./text') // Indonesian & English menu
-
+const welcome = require('./lib/welcome')
 module.exports = msgHandler = async (client, message) => {
     try {
         const { type, id, from, t, sender, isGroupMsg, chat, caption, isMedia, mimetype, quotedMsg, quotedMsgObj, mentionedJidList } = message
@@ -32,7 +32,6 @@ module.exports = msgHandler = async (client, message) => {
         const isCmd = body.startsWith(prefix)
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         const url = args.length !== 0 ? args[0] : ''
-        const welcome = require('./lib/welcome')
         const isUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi)
         if (!isCmd && !isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Mensagem de ', color(pushname)) }
         if (!isCmd && isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Mensagem de ', color(pushname), 'em', color(name || formattedTitle)) }
