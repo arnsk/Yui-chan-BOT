@@ -1,12 +1,11 @@
 const { decryptMedia } = require('@open-wa/wa-automate')
-const { downloader, cekResi, removebg, urlShortener, meme } = require('../../lib')
+const { downloader, cekResi, removebg, urlShortener, meme, welcome } = require('../../lib')
 const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
 moment.tz.setDefault('America/Sao_Paulo').locale('id')
 const get = require('got')
 const { menuId, menuEn } = require('./text') // Indonesian & English menu
-const welcome = require('./lib/welcome')
 module.exports = msgHandler = async (client, message) => {
     try {
         const { type, id, from, t, sender, isGroupMsg, chat, caption, isMedia, mimetype, quotedMsg, quotedMsgObj, mentionedJidList } = message
