@@ -32,6 +32,7 @@ module.exports = msgHandler = async (client, message) => {
         const isCmd = body.startsWith(prefix)
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         const url = args.length !== 0 ? args[0] : ''
+        const welcome = require('./lib/welcome')
         const isUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi)
         if (!isCmd && !isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Mensagem de ', color(pushname)) }
         if (!isCmd && isGroupMsg) { return console.log('[RECV]', color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Mensagem de ', color(pushname), 'em', color(name || formattedTitle)) }
@@ -39,12 +40,22 @@ module.exports = msgHandler = async (client, message) => {
         if (isCmd && isGroupMsg) { console.log(color('[EXEC]'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'de', color(pushname), 'em', color(name || formattedTitle)) }
         switch (command) {
         // Menu and TnC
-        case '#messageAll':
-            if (isOwner){
-            for (let gclist of allGroups) {
-                await client.sendText(gclist.contact.id, 'Desculpe, o bot está sendo reiniciado ${allChats.length}')
+        
+        case '#welcome':
+            if (!isGroupMsg) return client.reply(from, 'Este comando só pode ser usado em grupos#', id)
+            if (!isGroupAdmins) return client.reply(from, 'Este comando só pode ser usado pelo grupo Admin#', id)
+            if (args.length === 1) return client.reply(from, 'Selecione enable ou disable#', id)
+            if (args[1].toLowerCase() === 'enable') {
+                welkom.push(chat.id)
+                fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
+                client.reply(from, 'Fitur welcome berhasil di aktifkan di group ini#', id)
+            } else if (args[1].toLowerCase() === 'disable') {
+                welkom.splice(chat.id, 1)
+                fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
+                client.reply(from, 'Fitur welcome berhasil di nonaktifkan di group ini#', id)
+            } else {
+                client.reply(from, 'Selecione enable ou disable udin#', id)
             }
-        }
             break
         case '#speed':
             await client.sendText(from, `Speed: ${processTime(moment())} _Second_`)
