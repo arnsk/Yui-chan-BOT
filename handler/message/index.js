@@ -1,6 +1,5 @@
 const { decryptMedia } = require('@open-wa/wa-automate')
 const { downloader, cekResi, removebg, urlShortener, meme } = require('../../lib')
-const welcome = require('../../lib/welcome')
 const fs = require('fs-extra')
 const { msgFilter, color, mentionList } = require('../../util')
 const moment = require('moment-timezone')
@@ -26,8 +25,9 @@ module.exports = msgHandler = async (client, message) => {
         // Checking processTime
         const processTime = now => moment.duration(now - moment(t * 1000)).asSeconds() // t => timestamp when message was received
         const prefix = ''
+        const commands = caption || body || ''
         body = (type === 'chat' && body.startsWith(prefix)) ? body : ((type === 'image' && caption) && caption.startsWith(prefix)) ? caption : ''
-        const command = body.slice(prefix.length).trim().split(/ +/).shift().toLowerCase()
+        const command = commands.toLowerCase().split(' ')[0] || ''
         const args = body.slice(prefix.length).trim().split(/ +/).slice(1)
         const isCmd = body.startsWith(prefix)
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
@@ -39,21 +39,22 @@ module.exports = msgHandler = async (client, message) => {
         if (isCmd && isGroupMsg) { console.log(color('[EXEC]'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'de', color(pushname), 'em', color(name || formattedTitle)) }
         switch (command) {
         // Menu and TnC
-        
-        case '#welcome':
-            if (!isGroupMsg) return client.reply(from, 'Este comando só pode ser usado em grupos#', id)
-            if (!isGroupAdmins) return client.reply(from, 'Este comando só pode ser usado pelo grupo Admin#', id)
-            if (args.length === 1) return client.reply(from, 'Selecione enable ou disable#', id)
-            if (args[1].toLowerCase() === 'enable') {
-                welkom.push(chat.id)
-                fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
-                client.reply(from, 'Fitur welcome berhasil di aktifkan di group ini#', id)
-            } else if (args[1].toLowerCase() === 'disable') {
-                welkom.splice(chat.id, 1)
-                fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
-                client.reply(from, 'Fitur welcome berhasil di nonaktifkan di group ini#', id)
-            } else {
-                client.reply(from, 'Selecione enable ou disable udin#', id)
+        case '#stickergif':
+        case '#stikergif':
+        case '#sgif':
+            if (isMedia) {
+                if ( mimetype === 'video/mp4' && message.duration < 10 || mimetype === 'image/gif' && message.duration < 10) {
+                    const mediaData = await decryptMedia(message, uaOverride)
+                    client.reply(from, '[WAIT] Seu sticker ficará pronto em ± 1 min#', id)
+                    const filename = `./media/aswu.${mimetype.split('/')[1]}`
+                    await fs.writeFileSync(filename, mediaData)
+                    await exec(`gify ${filename} ./media/output.gif --fps=30 --scale=240:240`, async function (error, stdout, stderr) {
+                        const gif = await fs.readFileSync('./media/output.gif', { encoding: "base64" })
+                        await client.sendImageAsSticker(from, `data:image/gif;base64,${gif.toString('base64')}`)
+                    })
+                } else (
+                    client.reply(from, '[❗] o video precisa ter no max 10 sec#', id)
+                )
             }
             break
         case '#speed':
