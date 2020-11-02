@@ -303,22 +303,6 @@ module.exports = msgHandler = async (client, message) => {
 
             }
             break
-            case '#sgif':
-                if (isMedia) {
-                    if (mimetype === 'video/mp4' && message.duration < 10 || mimetype === 'image/gif' && message.duration < 10) {
-                        const mediaData = await decryptMedia(message, uaOverride)
-                        client.reply(from, '[WAIT] Em andamento⏳ aguarde ± 1 min!', id)
-                        const filename = `./media/aswu.${mimetype.split('/')[1]}`
-                        await fs.writeFileSync(filename, mediaData)
-                        await exec(`gify ${filename} ./media/output.gif --fps=30 --scale=240:240`, async function (error, stdout, stderr) {
-                            const gif = await fs.readFileSync('./media/output.gif', { encoding: "base64" })
-                            await client.sendImageAsSticker(from, `data:image/gif;base64,${gif.toString('base64')}`)
-                        })
-                    } else (
-                        client.reply(from, '[❗] Envie um vídeo com a legenda *#StickerGif * máximo de 10 segundos!', id)
-                    )
-                }
-                break
         case '#loli':
             const loli = await get.get('https://mhankbarbar.herokuapp.com/api/randomloli').json()
             client.sendFileFromUrl(from, loli.result, 'loli.jpeg', 'Lolinya om', id)
@@ -331,13 +315,13 @@ module.exports = msgHandler = async (client, message) => {
             break
         }
         default:
-            console.log(color('[ERROR]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), 'Unregistered Command from', color(pushname))
+            console.log(color('[Aviso]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color('Comando indefinido de ', 'red'), color(pushname))
             break
         }
 
     
 
     } catch (err) {
-        console.log(color('[ERROR]', 'red'), err)
+        //console.log(color('[ERRO]', 'red'), err)
     }
 }
