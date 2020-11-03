@@ -216,7 +216,7 @@ module.exports = msgHandler = async (client, message) => {
         case 'yuui':
         case 'yui-chan':
             client.reply(from, 'F-falou cmg ??')
-            client.reply(from, 'Ac-cho que sim :3 🥰 🥰 ')
+            client.reply(from, 'Ac-cho que sim 🥰 🥰 ')
             break
         case 'para':
             client.reply(from, 'Paro nada, bobinho')
