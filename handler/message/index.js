@@ -216,14 +216,14 @@ module.exports = msgHandler = async (client, message) => {
         case 'yuui':
         case 'yui-chan':
             client.reply(from, 'F-falou cmg ??')
-            client.reply(from, 'Ac-cho que sim :3')
+            client.reply(from, 'Ac-cho que sim :3 🥰 🥰 ')
             break
         case 'para':
-            client.reply(from, 'Paro nada n, ta doido?')
+            client.reply(from, 'Paro nada, bobinho')
             break
         case 'teamo':
         case 'amo':
-            client.reply(from, 'ee--h vc me ama? senpai')
+            client.reply(from, 'ee--h vc me ama? 😍')
             break
         case 'tamilis':
         case 'tata':
