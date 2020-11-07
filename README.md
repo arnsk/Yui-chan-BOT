@@ -1,6 +1,6 @@
 <div align="center">
  
-# Whatsapp Bot - sticker creator
+# Whatsapp Bot - Criador do código fonte
 [![Codefactor](https://www.codefactor.io/repository/github/yogasakti/imagetosticker/badge)](https://www.codefactor.io/repository/github/yogasakti/imagetosticker)
 <details>
  <summary>🥟 Help me!</summary>
@@ -42,7 +42,6 @@
 |       ✅        |   Translate text (quote only)                  |
 |       ✅        |   check data on the spread of Covid-19 in certain locations|
 |       ✅        |   Check Shipping info (indonesia only)         |
-|      BETA        |   Anti Spam                                   |
 
 
 | Grup Only  |                     Feature                     |
@@ -51,7 +50,6 @@
 |       ✅        |   Demote User                   |
 |       ✅        |   Kick User                     |
 |       ✅        |   Delete bot message            |
-|       https://bit.ly/3hmgD4R        |   Mention All User      |
 
 ## To-Do
  - Add More Feature
