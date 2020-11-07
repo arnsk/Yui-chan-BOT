@@ -1,6 +1,6 @@
 <div align="center">
  
-# Whatsapp Bot - Criador do código fonte
+# Whatsapp Bot - Criador do código fonte 
 [![Codefactor](https://www.codefactor.io/repository/github/yogasakti/imagetosticker/badge)](https://www.codefactor.io/repository/github/yogasakti/imagetosticker)
 <details>
  <summary>🥟 Help me!</summary>
@@ -65,8 +65,8 @@ This project require NodeJS v12.
 Clone this project
 
 ```bash
-> git clone https://github.com/YogaSakti/imageToSticker.git
-> cd imageToSticker
+> git clone https://github.com/lotaviods/Yui-chan-BOT
+> cd Yui-chan-BOT
 ```
 
 Install the dependencies:
