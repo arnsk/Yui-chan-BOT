@@ -14,10 +14,12 @@ Usando source code / bot ini então você concorda com os seguintes termos e con
     • queima / desmatamento florestal
     • discurso de ódio ou discriminação com base na idade, sexo, identidade de gênero, raça, sexualidade, religião, nacionalidade
 
-Código fonte BOT : https://github.com/YogaSakti/imageToSticker
+Código fonte BOT ORIGINAL : https://github.com/YogaSakti/imageToSticker
+Código fonte deste BOT : https://github.com/lotaviods/Yui-chan-BOT
 Biblioteca NodeJS WhatsApp: https://github.com/open-wa/wa-automate-nodejs
 
-Atenciosamente, Yoga Sakti.`
+Atenciosamente, Yoga Sakti.
+Atenciosamente, Luiz Otávio.`
 }
 
 exports.textMenu = (pushname) => {
@@ -26,7 +28,7 @@ exports.textMenu = (pushname) => {
     ┏ ❣ *Yui chan BOT* ❣
     ╿   Trabalhando em melhorias.
   ╽   ✨ Aqui estão alguns dos recursos deste bot! ✨
-╽       Versão antiga devido travamentos- em testes 
+╽     
 ╽ Sticker Creator:
 ┠❥ 1. *#sticker*
 ╽ Para transformar a imagem em um adesivo. (envie imagens com a legenda #sticker ou responda às imagens que foram enviadas com #sticker)
@@ -63,16 +65,37 @@ exports.textMenu = (pushname) => {
 ┠❥9. *#speed*
 ╽ver o ping do bot
 ╽
-┠❥10. *#ping*
+┠❥10. *#ping* *#pong*
 ╽ping pong!
 ╽
 ┠❥11. *fale*
 ╽Converter texto em mensagem de voz
 ╽
-┠❥12. *adicionais: bodia, bonoite ...*
+┠❥12. *adicionais: bodia, bonoite, para ...*
 ╽
 ┠❥13. *#loli*
-╽Espero que você tenha um ótimo dia!✨`
+╽Espero que você tenha um ótimo dia!✨
+┠❥14.*#infogrupo*
+╽Exibe a descrição do grupo
+┠❥15.*#doação*
+╽Exibe o menu de doação do bot
+╽
+╽    ⚠ [ *Admin Group Only* ] ⚠ 
+╽    Aqui estão alguns dos recursos de administração de grupo
+╽
+╽    1. *#kick* @user
+╽    Para remover membros do grupo (pode ser mais de 1).
+╽
+╽    2. *#promote* @user
+╽    Para promover membros a administradores do grupo.
+╽
+╽    3. *#demote* @user
+╽    Para rebaixar os administradores do Grupo.
+╽
+╽    4. *#del*
+╽    Para deletar uma mensagem do bot (responda à mensagem do bot com #del)
+┠❥
+`
 }
 
 exports.textAdmin = () => {
@@ -100,5 +123,5 @@ https://www.paypal.com/donate?hosted_button_id=GDR4ZG8QAVDSQ
 
 A doação será usada para o desenvolvimento e operação deste bot.
 
-Obrigado.`
+Obrigado, Luiz Otávio.`
 }
