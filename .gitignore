@@ -17,9 +17,3 @@ debug.log
 # Lock files
 package-lock.json
 
-# Other files
-premium.js
-quotemsg.js
-lib/quran.js
-lib/instaStory.js
-lib/jiwa.js
