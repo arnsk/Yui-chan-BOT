@@ -1,8 +1,8 @@
 <div align="center">
  
-# Whatsapp Bot - Yui-chan - Português
-# README ORIGINAL DO CRIADOR
-# https://github.com/YogaSakti/imageToSticker
+# Whatsapp Bot em português - Yui-chan
+# Criador do código fonte: https://github.com/YogaSakti/imageToSticker
+# Modificamos ela e adicionamos funções a mais, espero que goste
 [![Codefactor](https://www.codefactor.io/repository/github/yogasakti/imagetosticker/badge)](https://www.codefactor.io/repository/github/yogasakti/imagetosticker)
 <details>
  <summary>🥟 De suporte ao criador do código fonte !!</summary>
@@ -63,7 +63,7 @@
 
 Esse projeto requer NodeJS v12.
 
-### Instalação
+## Instalação
 Clone esse projeto
 
 ```bash
@@ -77,7 +77,7 @@ Instale as dependências :
 > npm install
 ```
 
-### Usage
+## Utilização
 1. Execute o bot.
 
 ```bash
