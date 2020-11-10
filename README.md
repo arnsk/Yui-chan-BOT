@@ -1,9 +1,11 @@
 <div align="center">
  
-# Whatsapp Bot - Criador do código fonte 
+# Whatsapp Bot - Yui-chan - Português
+# README ORIGINAL DO CRIADOR
+# https://github.com/YogaSakti/imageToSticker
 [![Codefactor](https://www.codefactor.io/repository/github/yogasakti/imagetosticker/badge)](https://www.codefactor.io/repository/github/yogasakti/imagetosticker)
 <details>
- <summary>🥟 Help me!</summary>
+ <summary>🥟 De suporte ao criador do código fonte !!</summary>
 
  [Saweria](https://saweria.co/donate/yogasakti)
  
@@ -57,37 +59,37 @@
  
 ---
 
-## Getting Started
+### Iniciando - Yui-chan aqui
 
-This project require NodeJS v12.
+Esse projeto requer NodeJS v12.
 
-### Install
-Clone this project
+### Instalação
+Clone esse projeto
 
 ```bash
 > git clone https://github.com/lotaviods/Yui-chan-BOT
 > cd Yui-chan-BOT
 ```
 
-Install the dependencies:
+Instale as dependências :
 
 ```bash
 > npm install
 ```
 
 ### Usage
-1. run the Whatsapp bot
+1. Execute o bot.
 
 ```bash
 > npm start
 ```
 
-after running it you need to scan the qr
+depois de executar escaneie o codigo qr
 
-## Troubleshooting
-Make sure all the necessary dependencies are installed: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
+## Solução de problemas
+tenha certeza de todas as dependências estejam instaladas : https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 
-Fix Stuck on linux, install google chrome stable: 
+Corrija o travamento no linux, instale google chrome stable: 
 ```bash
 > wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 > sudo apt install ./google-chrome-stable_current_amd64.deb
